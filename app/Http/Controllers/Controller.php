@@ -15,9 +15,10 @@ class Controller extends BaseController
     public function dataEncode($data = [], $httpStatus = '200', $errcode = '0', $errmsg = ''){
         /*
          *  errcode 错误代码一览
-         *  0：      正常
-         *  500000：  授权失败
-         *  500404：  未找到所请求的资源
+         *  0：          正常
+         *  500000:     授权失败
+         *  500404:     未找到所请求的资源
+         *  500501:     服务器原因导致的操作失败
          * */
 
         $result = [

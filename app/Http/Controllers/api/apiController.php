@@ -21,6 +21,22 @@ class apiController extends Controller
             return $this->dataEncode($user);
         }
     }
+
+    public function updateInfo(Request $request,$id){
+        $user = User::find($id);
+        if(is_null($user)){
+            return $this->dataEncode('','404','500404','未找到用户');
+        } else{
+            if($user->update($request->all())){
+                return $this->dataEncode($user);
+            } else {
+                return $this->dataEncode('','200','500501','数据库更新失败');
+            }
+
+        }
+    }
+
+
     public function login(){
         $postInfo = User::decodeInfo($_GET['verify_request']);
         return $this->dataEncode(User::loginByYiban($postInfo));

@@ -14,8 +14,7 @@ use Illuminate\Http\Request;
 */
 Route::group(['namespace' => 'Api'], function() {
     Route::get('/user/login', 'apiController@login');
-    Route::get('/user/loginCallback', 'apiController@loginCallback');
     Route::get('/user/{id}', 'apiController@getInfo');
     Route::get('/user/{id}/edit', 'apiController@editInfo');
-    Route::patch('/user/{id}/edit', 'apiController@updateInfo');
+    Route::post('/user/{id}/edit', 'apiController@updateInfo');
 });
