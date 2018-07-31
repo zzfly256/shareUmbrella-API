@@ -12,22 +12,23 @@
 | verify_request |  来自易班OAuth的回调 | api/user/login?verify_request=ffc07bd78668ec054| 
 
 - 请求方式: GET
-- 返回格式
+- 返回格式: Cookie | user
 ```json
 {
-	"errmsg": "",
-	"errcode": "0",
-	"data": {
-		"userid": "8553831",
-		"username": "BabyRytia",
-		"usernick": "BabyRytia",
-		"usersex": "M",
-		"updated_at": "2018-07-30 07:50:32",
-		"created_at": "2018-07-30 07:50:32",
-		"id": 2
-	}
+	"id": 3,
+	"userid": 8553831,
+	"username": "BabyRytia",
+	"usernick": "BabyRytia",
+	"usersex": "M",
+	"school": null,
+	"major": null,
+	"campuscard": null,
+	"email": null,
+	"created_at": "2018-07-31 06:56:21",
+	"updated_at": "2018-07-31 06:56:21"
 }
 ```
+- Web APP 打开后将会自动获取授权，前端只需读取 Cookie 中的 user 的信息即可
 ### 获取用户信息
 - url: `api/user/{id}`
 - 参数

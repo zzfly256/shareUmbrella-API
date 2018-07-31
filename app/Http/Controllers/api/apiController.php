@@ -38,9 +38,13 @@ class apiController extends Controller
 
 
     public function login(){
-        $postInfo = User::decodeInfo($_GET['verify_request']);
-        return $this->dataEncode(User::loginByYiban($postInfo));
-    }
-    public function loginCallback(){
+        if (!isset($_GET['verify_request']) && !isset($_COOKIE['user'])) {
+            return redirect("https://openapi.yiban.cn/oauth/authorize?client_id=ca605d44857848cd&redirect_uri=http://f.yiban.cn/iapp257907");
+        } else {
+            $postInfo = User::decodeInfo($_GET['verify_request']);
+            $user = User::loginByYiban($postInfo);
+            setcookie('user',json_encode($user),time()+3600,"/front_end");
+            return redirect('/front_end');
+        }
     }
 }
