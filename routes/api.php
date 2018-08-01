@@ -14,7 +14,12 @@ use Illuminate\Http\Request;
 */
 Route::group(['namespace' => 'Api'], function() {
     Route::get('/user/login', 'apiController@login');
-    Route::get('/user/{id}', 'apiController@getInfo');
-    Route::get('/user/{id}/edit', 'apiController@editInfo');
-    Route::post('/user/{id}/edit', 'apiController@updateInfo');
+    Route::get('/user/{id}', 'apiController@getUser');
+    Route::post('/user/{id}/edit', 'apiController@updateUser');
+
+    Route::get('/item', 'apiController@listItem');
+    Route::post('/item', 'apiController@createItem');
+    Route::get('/item/{id}', 'apiController@getItem');
+    Route::delete('/item/{id}', 'apiController@destroyItem');
+    Route::post('/item/{id}/edit', 'apiController@updateItem');
 });
