@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Area;
 use App\Item;
 use App\User;
 use Illuminate\Http\Request;
@@ -47,11 +48,18 @@ class apiController extends Controller
         }
     }
 
-    /* 共享雨伞条目  API
-     * Author: Rytia
-     * */
+    public function getUserItems($id){
+        $user = User::find($id);
+        if(is_null($user)){
+            return $this->dataEncode('','404','500404','未找到用户');
+        } else{
+          return $this->dataEncode($user->items());
+        }
+    }
+
+    /* 共享雨伞条目  API*/
     public function listItem(){
-        return $this->dataEncode(Item::all());
+        return $this->dataEncode(Item::getAllItem());
     }
 
     public function createItem(Request $request){
@@ -63,8 +71,9 @@ class apiController extends Controller
     }
 
     public function getItem($id){
-        $item = Item::find($id);
-        if(is_null($item)){
+        $item = Item::getItem($id);
+        // 数据库查询返回的时 Collection
+        if($item->isEmpty()){
             return $this->dataEncode('','404','500404','未找到条目');
         } else{
                 return $this->dataEncode($item);
@@ -77,7 +86,7 @@ class apiController extends Controller
             return $this->dataEncode('','404','500404','未找到条目');
         } else{
             if($item->update($request->all())){
-                return $this->dataEncode($item);
+                return $this->dataEncode(Item::getItem($id));
             } else {
                 return $this->dataEncode('','200','500501','数据更新失败');
             }
@@ -90,10 +99,57 @@ class apiController extends Controller
             return $this->dataEncode('','404','500404','未找到条目');
         } else{
             if($item->delete()){
-                return $this->dataEncode($item);
+                return $this->dataEncode('','201','0','删除成功');
             } else {
                 return $this->dataEncode('','200','500503','数据删除失败');
             }
+        }
+    }
+
+    public function searchItem($target){
+        if(isset($_GET['content'])){
+            switch($target) {
+                case 'title':
+                    return $this->dataEncode(Item::searchItem('items','title',htmlentities($_GET['content'])));
+                    break;
+                case 'tag':
+                    return $this->dataEncode(Item::searchItem('items','tags',htmlentities($_GET['content'])));
+                    break;
+                case 'usernick':
+                    return $this->dataEncode(Item::searchItem('users','usernick',htmlentities($_GET['content'])));
+                case 'coordinate':
+                    $coordinate = explode(',',$_GET['content']);
+                    if(count($coordinate)==2){
+                        return $this->dataEncode(Item::getNearbyItem($coordinate[0],$coordinate[1]));
+                    }
+                default:
+                    return $this->dataEncode('','400','500400','搜索类型错误');
+            }
+        } else {
+            return $this->dataEncode('','400','500400','搜索参数 content 不存在');
+        }
+    }
+
+    /* 区域  API*/
+    public function listArea(){
+        return $this->dataEncode(Area::all());
+    }
+
+    public function getArea($id){
+        $area = Area::find($id);
+        if(is_null($area)){
+            return $this->dataEncode('','404','500404','未找到指定区域');
+        } else{
+            return $this->dataEncode($area);
+        }
+    }
+
+    public function getAreaItems($id){
+        $area = Area::find($id);
+        if(is_null($area)){
+            return $this->dataEncode('','404','500404','未找到指定区域');
+        } else {
+            return $this->dataEncode(Area::find($id)->items());
         }
     }
 

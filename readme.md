@@ -56,7 +56,7 @@
 }
 ```
 ### 1.3 编辑用户信息
-- url: `api/user/{id}/edit`
+- url: `api/user/{id}`
 - 参数
 
 | 参数   |      说明      |  Demo |
@@ -94,6 +94,39 @@
 }
 ```
 
+### 1.4 获取用户发布的共享条目
+ url: `api/user/{id}/items`
+- 参数
+
+| 参数   |      说明      |  Demo |
+|----------|:-------------:|-------|
+| id |  来自登录时返回的 id 值 | api/user/1/items
+
+- 请求方式: GET
+
+- 返回格式
+```json
+{
+    "errmsg": "",
+    "errcode": "0",
+    "data": [
+        {
+            "id": 2,
+            "title": "测试标题",
+            "content": "测试内容",
+            "area_id": 1,
+            "user_id": 1,
+            "coordinate": "23，22222222,113.22222222",
+            "tags": "标签1,标签2,标签3",
+            "created_at": "2018-08-01 12:44:31",
+            "updated_at": "2018-08-01 12:44:31",
+            "area_name": "测试区域",
+            "usernick": "BabyRytia"
+        }
+    ]
+}
+```
+
 ## 2. Item
 ### 2.1 获取全部共享雨伞条目
 - url: `api/item`
@@ -106,15 +139,30 @@
     "errcode": "0",
     "data": [
         {
-            "id": 1,
+            "usernick": "BabyRytia",
+            "area_name": "测试区域",
+            "id": 2,
             "title": "测试标题",
             "content": "测试内容",
             "area_id": 1,
             "user_id": 1,
             "coordinate": "23，22222222,113.22222222",
             "tags": "标签1,标签2,标签3",
-            "created_at": "2018-08-01 12:00:46",
-            "updated_at": "2018-08-01 12:00:46"
+            "created_at": "2018-08-01 12:44:31",
+            "updated_at": "2018-08-01 12:44:31"
+        },
+        {
+           "usernick": "BabyRytia",
+           "area_name": "测试区域",
+           "id": 3,
+           "title": "测试标题",
+           "content": "测试内容",
+           "area_id": 1,
+           "user_id": 1,
+           "coordinate": "23，22222222,113.22222222",
+           "tags": "标签1,标签2,标签3",
+           "created_at": "2018-08-01 12:44:31",
+           "updated_at": "2018-08-01 12:44:31"
         }
     ]
 }
@@ -158,21 +206,25 @@
 {
     "errmsg": "",
     "errcode": "0",
-    "data": {
-        "id": 1,
-        "title": "测试标题",
-        "content": "测试内容",
-        "area_id": 1,
-        "user_id": 1,
-        "coordinate": "23，22222222,113.22222222",
-        "tags": "标签1,标签2,标签3",
-        "created_at": "2018-08-01 12:00:46",
-        "updated_at": "2018-08-01 12:00:46"
-    }
+    "data": [
+        {
+            "usernick": "BabyRytia",
+             "area_name": "测试区域",
+             "id": 2,
+             "title": "测试标题",
+             "content": "测试内容",
+             "area_id": 1,
+             "user_id": 1,
+             "coordinate": "23，22222222,113.22222222",
+             "tags": "标签1,标签2,标签3",
+             "created_at": "2018-08-01 12:44:31",
+             "updated_at": "2018-08-01 12:44:31"
+        }
+    ]
 }
 ```
 ### 2.4 编辑共享雨伞条目
-- url: `api/item/{id}/edit`
+- url: `api/item/{id}`
 - 参数
 
 | 参数   |      说明      |  Demo |
@@ -192,17 +244,21 @@
 {
     "errmsg": "",
     "errcode": "0",
-    "data": {
-        "id": 1,
-        "title": "测试标题",
-        "content": "测试内容",
-        "area_id": "1",
-        "user_id": "1",
-        "coordinate": "23，22222222,113.22222222",
-        "tags": "标签1,标签2,标签3",
-        "created_at": "2018-08-01 12:00:46",
-        "updated_at": "2018-08-01 12:24:25"
-    }
+    "data": [
+        {
+            "usernick": "BabyRytia",
+            "area_name": "测试区域",
+            "id": 2,
+            "title": "测试标题",
+            "content": "测试内容",
+            "area_id": 1,
+            "user_id": 1,
+            "coordinate": "23，22222222,113.22222222",
+            "tags": "标签1,标签2,标签3",
+            "created_at": "2018-08-01 12:44:31",
+            "updated_at": "2018-08-01 12:44:31"
+        }
+    ]
 }
 ```
 ## 2.5 删除共享雨伞条目信息
@@ -211,9 +267,80 @@
 
 | 参数   |      说明      |  Demo |
 |----------|:-------------:|-------|
-| id |  来自 `/api/item` 返回的 id 值 | api/user/2
+| id |  来自 `/api/item` 返回的 id 值 | api/item/2
 
 - 请求方式: DELETE
+- 返回格式
+```json
+{
+    "errmsg": "删除成功",
+    "errcode": "0",
+    "data": ""
+}
+```
+
+## 2.6 检索共享雨伞条目
+- url: `api/item/search/{target}`
+- 参数
+
+| 参数   |      说明      |  Demo |
+|----------|:-------------:|-------|
+| target | 搜索的类型，支持 `title`, `tag`, `usernick`, `coordinate` | api/item/search/title?content=测试
+| content | 搜索的内容，请传入字符串类型数据，经纬度如所示 | api/item/search/coordinate?content=113.233,23.455
+
+- 请求方式: GET
+- 返回格式
+```json
+{
+    "errmsg": "",
+    "errcode": "0",
+    "data": [
+        {
+            "usernick": "BabyRytia",
+            "area_name": "测试区域",
+            "id": 2,
+            "title": "测试标题",
+            "content": "测试内容",
+            "area_id": 1,
+            "user_id": 1,
+            "coordinate": "23，22222222,113.22222222",
+            "tags": "标签1,标签2,标签3",
+            "created_at": "2018-08-01 12:44:31",
+            "updated_at": "2018-08-01 12:44:31"
+        }
+    ]
+}
+```
+- 注意：该接口由于兼顾特殊字符，并未遵循 RESTful API 风格
+
+## 3. Area
+### 3.1 获取全部区域
+- url: `api/area`
+- 参数: 无
+- 请求方式: GET
+- 返回格式
+```json
+{
+    "errmsg": "",
+    "errcode": "0",
+    "data": [
+        {
+            "id": 1,
+            "area_name": "测试区域"
+        }
+    ]
+}
+```
+
+### 3.2 获取区域信息
+- url: `api/area/{id}`
+- 参数: 
+
+| 参数   |      说明      |  Demo |
+|----------|:-------------:|-------|
+| id |  来自 `/api/area` 返回的 id 值 | api/area/1
+
+- 请求方式: GET
 - 返回格式
 ```json
 {
@@ -221,19 +348,44 @@
     "errcode": "0",
     "data": {
         "id": 1,
-        "title": "测试标题",
-        "content": "测试内容",
-        "area_id": 1,
-        "user_id": 1,
-        "coordinate": "23，22222222,113.22222222",
-        "tags": "标签1,标签2,标签3",
-        "created_at": "2018-08-01 12:00:46",
-        "updated_at": "2018-08-01 12:00:46"
+        "area_name": "测试区域"
     }
 }
 ```
 
-##  errcode 错误代码一览
+### 3.3 获取该区域下的共享雨伞条目
+- url: `api/area/{id}/items`
+- 参数: 
+
+| 参数   |      说明      |  Demo |
+|----------|:-------------:|-------|
+| id |  来自 `/api/area` 返回的 id 值 | api/area/1/items
+
+- 请求方式: GET
+- 返回格式
+```json
+{
+    "errmsg": "",
+    "errcode": "0",
+    "data": [
+        {
+            "usernick": "BabyRytia",
+            "area_name": "测试区域",
+            "id": 2,
+            "title": "测试标题",
+            "content": "测试内容",
+            "area_id": 1,
+            "user_id": 1,
+            "coordinate": "23，22222222,113.22222222",
+            "tags": "标签1,标签2,标签3",
+            "created_at": "2018-08-01 12:44:31",
+            "updated_at": "2018-08-01 12:44:31"
+        }
+    ]
+}
+```
+
+## 附： errcode 错误代码一览
 - 0：          正常
 - 500000:     授权失败
 - 500404:     未找到所请求的资源

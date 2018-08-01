@@ -48,7 +48,18 @@ class User extends Authenticatable
         }
 
         Auth::login($user);
-
         return $user;
+    }
+
+    public function items(){
+        return Item::select(
+            'items.*',
+            'areas.area_name',
+            'users.usernick'
+            )
+            ->where(['items.user_id' => $this->id])
+            ->join('areas','items.area_id','=','areas.id')
+            ->join('users','items.user_id','=','users.id')
+            ->get();
     }
 }
