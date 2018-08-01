@@ -19,11 +19,11 @@ class CreateUsersTable extends Migration
             $table->string('username')->nullable();
             $table->string('usernick')->nullable();
             $table->string('usersex')->nullable();
-            $table->string('school')->nullable();
+            $table->string('wechat')->nullable();
             $table->string('major')->nullable();
-            $table->string('campuscard')->nullable();
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->string('qq')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('password')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

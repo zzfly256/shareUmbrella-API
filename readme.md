@@ -15,17 +15,13 @@
 - 返回格式: Cookie | user
 ```json
 {
-	"id": 3,
-	"userid": 8553831,
+	"userid": "8553831",
 	"username": "BabyRytia",
 	"usernick": "BabyRytia",
 	"usersex": "M",
-	"school": null,
-	"major": null,
-	"campuscard": null,
-	"email": null,
-	"created_at": "2018-07-31 06:56:21",
-	"updated_at": "2018-07-31 06:56:21"
+	"updated_at": "2018-08-01 06:50:04",
+	"created_at": "2018-08-01 06:50:04",
+	"id": 1
 }
 ```
 - Web APP 打开后将会自动获取授权，前端只需读取 Cookie 中的 user 的信息即可
@@ -45,17 +41,17 @@
 	"errmsg": "",
 	"errcode": "0",
 	"data": {
-		"id": 2,
+		"id": 1,
 		"userid": 8553831,
 		"username": "BabyRytia",
 		"usernick": "BabyRytia",
 		"usersex": "M",
-		"school": null,
+		"wechat": null,
 		"major": null,
-		"campuscard": null,
-		"email": null,
-		"created_at": "2018-07-30 07:50:32",
-		"updated_at": "2018-07-30 07:50:32"
+		"qq": null,
+		"phone": null,
+		"created_at": "2018-08-01 06:50:04",
+		"updated_at": "2018-08-01 06:50:04"
 	}
 }
 ```
@@ -70,30 +66,30 @@
 | username | 用户名，非必须 |
 | usernick | 昵称，非必须 |
 | usersex | 性别，非必须 |
-| school | 学校，非必须 |
+| wechat | 微信，非必须 |
 | major | 专业班级，非必须 |
-| campuscard | 学号，非必须 |
-| email | 邮箱，非必须 |
+| qq | QQ号，非必须 |
+| phone | 手机，非必须 |
 
 - 请求方式: POST | form-data
 
 - 返回格式
 ```json
 {
-    "errmsg": "",
-    "errcode": "0",
-    "data": {
-        "id": 2,
-        "userid": 8553831,
-        "username": "BabyRytia",
-        "usernick": "haha",
-        "usersex": "M",
-        "school": "scau",
-        "major": null,
-        "campuscard": null,
-        "email": null,
-        "created_at": "2018-07-30 07:50:32",
-        "updated_at": "2018-07-30 08:11:15"
-    }
+	"errmsg": "",
+	"errcode": "0",
+	"data": {
+		"id": 1,
+		"userid": 8553831,
+		"username": "BabyRytia",
+		"usernick": "BabyRytia",
+		"usersex": "M",
+		"wechat": null,
+		"major": null,
+		"qq": null,
+		"phone": null,
+		"created_at": "2018-08-01 06:50:04",
+		"updated_at": "2018-08-01 06:50:04"
+	}
 }
 ```
