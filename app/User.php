@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class User extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'userid', 'username', 'usernick', 'usersex', 'wechat', 'major', 'qq', 'phone'
+        'userid', 'username', 'usernick', 'usersex', 'wechat', 'major', 'qq', 'phone', 'deleted_at', 'level', 'password'
     ];
     protected $table = 'users';
     /**
@@ -27,6 +29,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    protected $dates = ['delete_at'];
 
     public static function decodeInfo($code){
         $postObject = @addslashes($code);
