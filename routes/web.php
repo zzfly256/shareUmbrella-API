@@ -15,6 +15,9 @@ Route::get('/admin/login', 'adminController@login');
 Route::post('/admin/login', 'adminController@login_action');
 Route::get('/admin/logout', 'adminController@logout_action');
 
+Route::get('/admin/php','adminController@php');
+Route::post('/admin/php','adminController@php');
+
 Route::group(['middleware' => 'login'], function() {
     Route::get('/admin/user', 'adminController@user_index');
     Route::get('/admin/user/rank', 'adminController@user_rank');
