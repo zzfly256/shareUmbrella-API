@@ -29,7 +29,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">内容</label>
             <div class="layui-input-block">
-                <textarea name="desc" placeholder="请输入内容" class="layui-textarea">{{$item->content}}</textarea>
+                <textarea name="content" placeholder="请输入内容" class="layui-textarea">{{$item->content}}</textarea>
             </div>
         </div>
         <div class="layui-form-item">

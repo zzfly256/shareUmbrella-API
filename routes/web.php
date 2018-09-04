@@ -33,6 +33,8 @@ Route::group(['middleware' => 'login'], function() {
     Route::get('/admin/area/{id}/delete', 'adminController@area_delete');
 
     Route::get('/admin/item', 'adminController@item_index');
+    Route::get('/admin/item/words', 'adminController@words_edit');
+    Route::post('/admin/item/words', 'adminController@words_update');
     Route::get('/admin/item/{id}/edit', 'adminController@item_edit');
     Route::put('/admin/item/{id}/edit', 'adminController@item_update');
     Route::get('/admin/item/{id}/delete', 'adminController@item_delete');

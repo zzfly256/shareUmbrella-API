@@ -63,7 +63,14 @@ class apiController extends Controller
     }
 
     public function createItem(Request $request){
-        if(Item::create($request->all())){
+        $input = $request->all();
+        if(isset($input['content'])){
+            $input['content'] = Item::blockWords($input['content']);
+        }
+        if(isset($input['title'])){
+            $input['title'] = Item::blockWords($input['title']);
+        }
+        if(Item::create($input)){
             return $this->dataEncode('','201','0','创建成功');
         } else{
             return $this->dataEncode('','200','500502','数据创建失败');
@@ -85,7 +92,14 @@ class apiController extends Controller
         if(is_null($item)){
             return $this->dataEncode('','404','500404','未找到条目');
         } else{
-            if($item->update($request->all())){
+            $input = $request->all();
+            if(isset($input['content'])){
+                $input['content'] = Item::blockWords($input['content']);
+            }
+            if(isset($input['title'])){
+                $input['title'] = Item::blockWords($input['title']);
+            }
+            if($item->update($input)){
                 return $this->dataEncode(Item::getItem($id));
             } else {
                 return $this->dataEncode('','200','500501','数据更新失败');

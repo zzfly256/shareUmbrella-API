@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Area;
 use App\Item;
+use App\Setting;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -141,7 +142,15 @@ class adminController extends Controller
     }
 
     public function item_update(Request $request, $id){
-        if(!is_null(Item::find($id)) && Item::find($id)->update($request->all())){
+        $input = $request->all();
+        if(isset($input['content'])){
+            $input['content'] = Item::blockWords($input['content']);
+        }
+        if(isset($input['title'])){
+            $input['title'] = Item::blockWords($input['title']);
+        }
+
+        if(!is_null(Item::find($id)) && Item::find($id)->update($input)){
             return view('item_edit')->with(["item" => Item::find($id), "info"=> "信息更新成功"]);
         }else{
             return view('item_edit')->with(["item" => Item::find($id), "info"=> "信息更新失败"]);
@@ -154,6 +163,24 @@ class adminController extends Controller
         }else{
             return redirect('/admin/item')->withCookie('info','封禁失败');
         }
+    }
+
+    public function words_edit(){
+        $result = Setting::where(['name' => 'words'])->get();
+        if(is_null($result) || $result->isEmpty()) {
+            Setting::create(['name'=>'words', 'content' => '']);
+            $result = '';
+        }else{
+            $result = $result->first()->content;
+        }
+        return view('words_edit')->with(['content' => $result]);
+    }
+
+    public function words_update(Request $request){
+        $result = Setting::where(['name' => 'words'])->first();
+        $input = $request->all();
+        $result->update(["content"=>$input['content']]);
+        return redirect('/admin/item/words');
     }
 
     public function login(){

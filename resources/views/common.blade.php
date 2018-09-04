@@ -47,7 +47,7 @@
                     <a class="" href="javascript:;">条目管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="/admin/item">条目列表</a></dd>
-                        <dd><a href="/admin/user/rank">标签总览</a></dd>
+                        <dd><a href="/admin/item/words">关键词过滤</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item layui-nav-itemed">

@@ -79,4 +79,20 @@ class Item extends Model
         array_multisort(array_column($result,'distance'),SORT_ASC,$result);
         return $result;
     }
+    public static function blockWords($string){
+        $result = Setting::where(['name' => 'words'])->get();
+        if(is_null($result) || $result->isEmpty()) {
+            Setting::create(['name'=>'words', 'content' => '']);
+            $result = '';
+        }else{
+            $result = $result->first()->content;
+        }
+
+        $array = explode(",", $result);
+        foreach ($array as $value) {
+            $string = str_replace($value,"**",$string);
+        }
+
+        return $string;
+    }
 }

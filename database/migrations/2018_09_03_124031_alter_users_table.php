@@ -14,7 +14,7 @@ class AlterUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->string('level')->default("0");
         });
     }
 
@@ -25,8 +25,6 @@ class AlterUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('level')->default("0");
-        });
+
     }
 }

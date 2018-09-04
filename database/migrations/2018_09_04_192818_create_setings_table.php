@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterPostsDeletedAt extends Migration
+class CreateSetingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AlterPostsDeletedAt extends Migration
      */
     public function up()
     {
-        chema::table('users', function (Blueprint $table) {
-            $table->dateTime('deleted_at')->nullable();
+        Schema::create('setings', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('content')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -25,6 +28,6 @@ class AlterPostsDeletedAt extends Migration
      */
     public function down()
     {
-
+        Schema::dropIfExists('setings');
     }
 }
